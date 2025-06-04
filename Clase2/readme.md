@@ -134,7 +134,7 @@ func main() {
 }
 ```
 
-## ReferenciasS
+## 🔗 Links de referencias
 
-[text](https://okanexe.medium.com/concurrency-with-goroutines-and-channels-in-go-b6e8bace6d94)
-[text](https://blog.stackademic.com/go-concurrency-visually-explained-select-statement-b546596c8e6b)
+- [goroutines&channels](https://okanexe.medium.com/concurrency-with-goroutines-and-channels-in-go-b6e8bace6d94)
+- [goroutines-visually](https://blog.stackademic.com/go-concurrency-visually-explained-select-statement-b546596c8e6b)
