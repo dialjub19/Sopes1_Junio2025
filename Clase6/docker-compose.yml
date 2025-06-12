@@ -1,0 +1,37 @@
+services:
+  # Define un servicio llamado "server_py"
+  server_py:  
+    # Usa una imagen llamada "usuario/nombreImagen:version" con la etiqueta (versión) v1
+    image: dialjub/server:v1
+    # Le da un nombre personalizado al contenedor: "py_container"
+    container_name: py_container
+    # Expone el puerto 5000 del contenedor en el puerto 5000 del host
+    # puertoHost:puertoContenedor
+    ports: 
+      - "5000:5000"
+    # Conecta este servicio a la red personalizada "personal"
+    networks:
+      - personal
+  
+  # Define un segundo servicio llamado "app-web"
+  app-web:
+    # Usa una imagen llamada "usuario/nombreImagen:version" con la etiqueta v1
+    image: dialjub/web:v1
+    # Le da un nombre personalizado al contenedor: "react_container"
+    container_name: react_container
+    # Expone el puerto 5173 del contenedor en un puerto del host definido por la variable de entorno PORT_WEB
+    # puertoHost:puertoContenedor
+    ports: 
+      - "${PORT_WEB}:5173"
+    # Este servicio depende del servicio "server_py", por lo que Docker lo iniciará primero
+    depends_on:
+      - server_py
+    # También lo conectamos a la red "personal"
+    networks:
+      - personal  
+
+# Area para definir una red
+networks:
+  # Definición de la red personalizada
+  personal_net:  
+    driver: bridge
