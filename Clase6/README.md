@@ -12,17 +12,20 @@ Docker Compose es una herramienta que permite definir y ejecutar aplicaciones mu
    ```sh
    docker login
    ```
-
-2. **Etiqueta la imagen (si es necesario):**
+2. **Construir imagen a partir del Dockerfile**
    ```sh
-   docker tag dialjub/server:v1 <tu_usuario>/server:v1
-   docker tag dialjub/web:v1 <tu_usuario>/web:v1
+   docker build -t <nombre_imagen> .
    ```
 
-3. **Sube la imagen:**
+4. **Etiqueta la imagen (si es necesario):**
    ```sh
-   docker push <tu_usuario>/server:v1
-   docker push <tu_usuario>/web:v1
+   docker tag <tu_usuario>/<nombre_imagen>:<version>
+   ```
+
+5. **Sube la imagen:**
+   ```sh
+   docker push <tu_usuario>/<nombre_imagen>:<version>
+   docker push <tu_usuario>/<nombre_imagen>:<version>
    ```
 
 ---
@@ -51,12 +54,12 @@ services:
 - **services:** Define los servicios (contenedores) que se van a ejecutar.
 
 #### Servicio `server_py`
-- **image:** Usa la imagen `dialjub/server:v1` (debe estar construida o disponible en DockerHub/local).
+- **image:** Usa la imagen descargada desde Docker Hub`<tu_usuario>/<nombre_imagen>:<version>` (debe estar construida o disponible en DockerHub/local).
 - **container_name:** Asigna el nombre `py_container` al contenedor.
 - **ports:** Mapea el puerto 5000 del host al 5000 del contenedor (acceso externo al backend Python).
 
 #### Servicio `app-web`
-- **image:** Usa la imagen `dialjub/web:v1`.
+- **image:** Usa la imagen descargada desde Docker Hub`<tu_usuario>/<nombre_imagen>:<version>`.
 - **container_name:** Asigna el nombre `react_container` al contenedor.
 - **ports:** Mapea el puerto definido en la variable de entorno `PORT_WEB` (por defecto 5173) al puerto 5173 del contenedor (frontend React).
 - **depends_on:** Indica que este servicio debe iniciarse después de que el servicio `server_py` esté listo.
