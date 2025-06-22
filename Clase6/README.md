@@ -19,12 +19,11 @@ Docker Compose es una herramienta que permite definir y ejecutar aplicaciones mu
 
 4. **Etiqueta la imagen (si es necesario):**
    ```sh
-   docker tag <tu_usuario>/<nombre_imagen>:<version>
+   docker tag <nombre_imagen_local> <tu_usuario>/<nombre_imagen>:<version>
    ```
 
 5. **Sube la imagen:**
    ```sh
-   docker push <tu_usuario>/<nombre_imagen>:<version>
    docker push <tu_usuario>/<nombre_imagen>:<version>
    ```
 
