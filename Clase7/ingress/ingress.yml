@@ -1,0 +1,58 @@
+apiVersion: networking.k8s.io/v1
+# Tipo de recurso.
+kind: Ingress
+metadata:
+  # Nombre del recurso.
+  name: ingress-nodejs
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    # Tipos de metodos a utilizar.
+    nginx.ingress.kubernetes.io/cors-allow-methods: "GET, POST"
+    nginx.ingress.kubernetes.io/canary: "true"
+    nginx.ingress.kubernetes.io/canary-weight: "50"
+  # Namespace donde se trabajara.
+  namespace: sopes1
+spec:
+  rules:
+    #IP ingress controller (nginx)
+    - host: <ip-del-ingress>
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                # Nombre del servicio al que se asociara el ingress.
+                name: service-nodejs
+                port:
+                  number: 4000
+
+---
+apiVersion: networking.k8s.io/v1
+# Tipo de recurso.
+kind: Ingress
+metadata:
+  # Nombre del recurso.
+  name: ingress-python
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    # Tipos de metodos a utilizar.
+    nginx.ingress.kubernetes.io/cors-allow-methods: "GET, POST"
+    nginx.ingress.kubernetes.io/canary: "true"
+    nginx.ingress.kubernetes.io/canary-weight: "50"
+  # Namespace donde se trabajara.
+  namespace: sopes1
+spec:
+  rules:
+    #IP ingress controller (nginx)
+    - host: <ip-del-ingress>
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                # Nombre del servicio al que se asociara el ingress.
+                name: service-python
+                port:
+                  number: 4000
