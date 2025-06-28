@@ -3,17 +3,17 @@ apiVersion: apps/v1
 # Tipo de recurso.
 kind: Deployment
 metadata:
-  # Nombre del recurso.
+  # Nombre del recurso deployment.
   name: nodejs
   # Namespace donde se trabajara.
-  namespace: so1p2
+  namespace: sopes1
 # Especificaciones del deployment.
 spec:
   # De esta forma sabemos que Pods pertenecen al deployment
   selector:
     matchLabels:
       app: deployment-nodejs
-  # Cantidad especifica de Pods a crear.
+  # Cantidad de pods y sus replicas a crear.
   replicas: 1
   # Plantilla que utilizara el deployment para crear los Pods
   template:
@@ -28,7 +28,7 @@ spec:
         # Nombre del contenedor.
         - name: server-nodejs
           # Imagen a descargar desde DockerHub
-          image: dialjub/server-node:v1
+          image: <user-dockerhub>/api-nodejs:v3
           # Puerto donde se expondra nuestro contenedor
           ports:
             - containerPort: 4000
@@ -44,14 +44,15 @@ metadata:
   # Namespace donde se trabajara.
   namespace: sopes1
 spec:
-  # Tipo de servicio.
+  # Tipo de Service que crea una IP externa para exponer el servicio.
   type: LoadBalancer
-  # Hace referencia al deployment, es decir al deployment que estara asociado.
+  # Selector que asocia este Service con los Pods etiquetados.
   selector:
     app: deployment-nodejs
   ports:
-    - name: nodejs-port
+    - name: nodejs-port  # Nombre simbólico del puerto (opcional pero útil).
       protocol: TCP
-      # Puerto donde se expondra nuestro service
+      # Puerto en el que se expondrá el servicio dentro del clúster (y externamente si es LoadBalancer).
       port: 4000
+      # Puerto interno del contenedor al que se redirigirá el tráfico.
       targetPort: 4000
