@@ -7,8 +7,9 @@
    ```sh
    tar -C /usr/local -xzf go1.xx.x.linux-amd64.tar.gz
    ```
-3. Agrega Go al PATH. Añade esto a tu `~/.bashrc` o `~/.profile`, si usas zsh como bash entonces añade en `~/.zshrc`:
+3. Agrega Go al PATH. Añade esto a tu archivo abriendolo con nano o gedit `~/.bashrc` o `~/.profile`, si usas zsh como bash entonces añade en `~/.zshrc`:
    ```sh
+   gedit ~/.bashrc
    export PATH=$PATH:/usr/local/go/bin
    ```
 4. Aplica los cambios:
